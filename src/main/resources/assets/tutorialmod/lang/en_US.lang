@@ -1,0 +1,12 @@
+tile.testOre.name=Test Ore
+item.testPick.name=Test Pickaxe
+item.testShovle.name=Test Shovle
+item.testSword.name=Test Sword
+item.testHoe.name=Test Hoe
+item.testAxe.name=Test Axe
+item.testGem.name=Test Gem
+itemGroup.testTab=Test Tab!
+item.testHelmet.name=Test Helmet
+item.testChest.name=Test Chestplate
+item.testLeggs.name=Test Leggings
+item.testBoots.name=Test Boots
