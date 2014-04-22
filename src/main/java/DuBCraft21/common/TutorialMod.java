@@ -3,6 +3,7 @@ package DuBCraft21.common;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Items;
@@ -10,9 +11,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.entity.EntityList.EntityEggInfo;
 import net.minecraftforge.common.util.EnumHelper;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
@@ -22,6 +26,7 @@ import DuBCraft21.Item.*;
 import DuBCraft21.creativeTab.*;
 import DuBCraft21.creativeTab.placeholder.*;
 import DuBCraft21.Armor.*;
+import DuBCraft21.Block.tileentity.*;
 import DuBCraft21.Block.worldgeneration.*;
 import DuBCraft21.mob.entity.*;
 
@@ -29,12 +34,18 @@ import DuBCraft21.mob.entity.*;
 public class TutorialMod {
 @SidedProxy(clientSide = "DuBCraft21.common.ClientProxy", serverSide = "DuBCraft21.common.CommonProxy")
 public static CommonProxy proxy;
+
+@Instance("TutorialMod")
+public static TutorialMod instance;
+
 //ARMOR IDS//
 private static int A1;
 private static int A2;
 private static int A3;
 private static int A4;
 
+//Mob IDS
+private static int startsEntityId = 301;
 
 
 public static CreativeTabs testTab = new testTab(CreativeTabs.getNextID(), "testTab");
@@ -50,6 +61,7 @@ public static Item testBoots = new TestArmor(testArmor, A4, 3).setUnlocalizedNam
 
 // block assignment
 public static Block testOre = new testOre(3000, Material.rock).setBlockName("testOre").setBlockTextureName("TutorialMod:testOre");
+public static Block testFurnace = new testFurnace(3001, Material.iron).setBlockName("testFurnace").setBlockTextureName("TutorialMod:testFurnace");
 
 //WorldGen
 public static testOreWG  worldgen1 = new testOreWG();
@@ -70,6 +82,10 @@ public static Item testGem = new testGem(3110).setUnlocalizedName("testGem").set
 		
 		//Block registry
 		GameRegistry.registerBlock(testOre, "testOre");
+		GameRegistry.registerBlock(testFurnace, "testFurnace");
+		
+		//Tile Entity Registration
+		GameRegistry.registerTileEntity(testFurnaceTileEntity.class, "testFurnaceTileEntity");
 		
 		//Item registry
 		GameRegistry.registerItem(testPick, "testPick");
@@ -85,9 +101,10 @@ public static Item testGem = new testGem(3110).setUnlocalizedName("testGem").set
 		GameRegistry.registerItem(testBoots, "testBoots");
 		
 		//Mob registry
-		EntityRegistry.registerGlobalEntityID(EntitytestMob.class, "Tes tMob", 301, 0xfffffff, 0x0033ff);
-		EntityRegistry.addSpawn(EntitytestMob.class, 10, 2, 4, EnumCreatureType.ambient);
+		EntityRegistry.registerGlobalEntityID(EntitytestMob.class, "Tes tMob", EntityRegistry.findGlobalUniqueEntityId());
+		EntityRegistry.addSpawn(EntitytestMob.class, 10, 3, 6, EnumCreatureType.ambient, BiomeGenBase.plains);
 		EntityRegistry.findGlobalUniqueEntityId();
+		registerEntityEgg(EntitytestMob.class, 0xfffffff, 0x0033ff);
 		
 		// recipes
 		GameRegistry.addRecipe(new ItemStack(testPick, 1), new Object [] {
@@ -117,14 +134,34 @@ public static Item testGem = new testGem(3110).setUnlocalizedName("testGem").set
 		GameRegistry.addRecipe(new ItemStack(testBoots, 1), new Object [] {
 			"x x", "x x", 'x', testGem
 		});
+		GameRegistry.addRecipe(new ItemStack(testGem, 1), new Object [] {
+			"x", 'x', testOre
+		});
+		//GameRegistry.addRecipe(new ItemStack());
 		
 		GameRegistry.registerWorldGenerator(worldgen1, 1);
 		
 	}
 	
+	private void registerEntityEgg(Class<? extends Entity> entity, int primaryColor, int secondaryColor) {
+		int id = getUniqueEntityId();
+		EntityList.IDtoClassMapping.put(id, entity);
+		EntityList.entityEggs.put(id, new EntityEggInfo(id, primaryColor, secondaryColor));
+	}
+
+	private int getUniqueEntityId() {
+		do{
+			startsEntityId++;
+		} while(EntityList.getStringFromID(startsEntityId) != null);
+		return startsEntityId++;
+	}
+
 	@EventHandler
 	public void load(FMLInitializationEvent event) {
 		proxy.RenderInformation();
+		instance = this;
 	}
+	
+	
 	
 }

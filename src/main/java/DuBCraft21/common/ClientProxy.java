@@ -7,7 +7,7 @@ import DuBCraft21.mob.render.RendertestMob;
 
 public class ClientProxy extends CommonProxy {
 	
-	public static void RenderInformation() {
+	public void RenderInformation() {
 		RenderingRegistry.registerEntityRenderingHandler(EntitytestMob.class, new RendertestMob(new testMob(), 0.3F));
 	}
 }

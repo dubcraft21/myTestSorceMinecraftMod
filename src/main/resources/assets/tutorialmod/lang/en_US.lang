@@ -10,3 +10,5 @@ item.testHelmet.name=Test Helmet
 item.testChest.name=Test Chestplate
 item.testLeggs.name=Test Leggings
 item.testBoots.name=Test Boots
+entity.Tes tMob.name=Test Mob
+tile.testFurnace.name=Test Furnace
