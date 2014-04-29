@@ -30,7 +30,7 @@ import DuBCraft21.Block.tileentity.*;
 import DuBCraft21.Block.worldgeneration.*;
 import DuBCraft21.mob.entity.*;
 
-@Mod(modid = "TutorialMod", name = "Tutorial Mod!", version = "Pre-Alpha 1.0")
+@Mod(modid = "TutorialMod", name = "Tutorial Mod!", version = "Pre-Alpha 1.5")
 public class TutorialMod {
 @SidedProxy(clientSide = "DuBCraft21.common.ClientProxy", serverSide = "DuBCraft21.common.CommonProxy")
 public static CommonProxy proxy;
@@ -43,28 +43,40 @@ private static int A1;
 private static int A2;
 private static int A3;
 private static int A4;
+private static int BA1;
+private static int BA2;
+private static int BA3;
+private static int BA4;
 
 //Mob IDS
 private static int startsEntityId = 301;
 
 
 public static CreativeTabs testTab = new testTab(CreativeTabs.getNextID(), "testTab");
-public static Item testPlaceholder = new testPlaceholder(3111).setUnlocalizedName("testPlaceholder").setTextureName("TutorialMod:testPlaceholder");
-public static ArmorMaterial testArmor = EnumHelper.addArmorMaterial("TESTA", 66, new int [] {10,  30, 20, 10}, 30);
-public static ToolMaterial test = EnumHelper.addToolMaterial("TEST", 5, 4000, 15.0f, 5, 30);
+public static Item testPlaceholder = new testPlaceholder(3201).setUnlocalizedName("testPlaceholder").setTextureName("TutorialMod:testPlaceholder");
+public static ArmorMaterial testArmor = EnumHelper.addArmorMaterial("TESTA", 66, new int [] {5, 15, 10, 5}, 30);
+public static ToolMaterial test = EnumHelper.addToolMaterial("TEST", 5, 2000, 15.0f, 4, 30);
+public static ArmorMaterial blueArmor = EnumHelper.addArmorMaterial("BLUEARMOR", 100, new int [] {10, 30, 20, 10}, 30);
+public static ToolMaterial blue = EnumHelper.addToolMaterial("BLUE", 6, 4000, 18.0f, 5, 30);
 
 // armor assignment
 public static Item testHelmet = new TestArmor(testArmor, A1, 0).setUnlocalizedName("testHelmet").setTextureName("TutorialMod:testHelmet");
 public static Item testChest = new TestArmor(testArmor, A2, 1).setUnlocalizedName("testChest").setTextureName("TutorialMod:testChest");
 public static Item testLeggs = new TestArmor(testArmor, A3, 2).setUnlocalizedName("testLeggs").setTextureName("TutorialMod:testLeggs");
 public static Item testBoots = new TestArmor(testArmor, A4, 3).setUnlocalizedName("testBoots").setTextureName("TutorialMod:testBoots");
+public static Item blueHelmet = new BlueArmor(blueArmor, BA1, 0).setUnlocalizedName("blueHelmet").setTextureName("TutorialMod:blueHelmet");
+public static Item blueChest = new BlueArmor(blueArmor, BA2, 1).setUnlocalizedName("blueChest").setTextureName("TutorialMod:blueChest");
+public static Item blueLeggings = new BlueArmor(blueArmor, BA3, 2).setUnlocalizedName("blueLeggings").setTextureName("TutorialMod:blueLeggings");
+public static Item blueBoots = new BlueArmor(blueArmor, BA4, 3).setUnlocalizedName("blueBoots").setTextureName("TutorialMod:blueBoots");
 
 // block assignment
 public static Block testOre = new testOre(3000, Material.rock).setBlockName("testOre").setBlockTextureName("TutorialMod:testOre");
 public static Block testFurnace = new testFurnace(3001, Material.iron).setBlockName("testFurnace").setBlockTextureName("TutorialMod:testFurnace");
+public static Block blueOre = new blueOre(3002, Material.rock).setBlockName("blueOre").setBlockTextureName("TutorialMod:blueOre");
 
 //WorldGen
 public static testOreWG  worldgen1 = new testOreWG();
+public static blueOreWG worldgen2 = new blueOreWG();
 
 // tool assignment
 public static Item testPick = new testPick(3100, test).setUnlocalizedName("testPick").setTextureName("TutorialMod:testPick");
@@ -72,9 +84,14 @@ public static Item testAxe = new testAxe(3101, test).setUnlocalizedName("testAxe
 public static Item testSword = new testSword(3102, test).setUnlocalizedName("testSword").setTextureName("TutorialMod:testSword");
 public static Item testHoe = new testHoe(3103, test).setUnlocalizedName("testHoe").setTextureName("TutorialMod:testHoe");
 public static Item testShovle = new testShovle(3104, test).setUnlocalizedName("testShovle").setTextureName("TutorialMod:testShovle");
+public static Item bluePick = new bluePick(3105, blue).setUnlocalizedName("bluePick").setTextureName("TutorialMod:bluePick");
+public static Item blueAxe = new blueAxe(3106, blue).setUnlocalizedName("bluePick").setTextureName("TutorialMod:blueAxe");
+public static Item blueShovle = new blueShovle(3107, blue).setUnlocalizedName("blueShovle").setTextureName("TutorialMod:blueShovle");
+public static Item blueSword = new blueSword(3108, blue).setUnlocalizedName("blueSword").setTextureName("TutorialMod:blueSword");
+public static Item blueHoe = new blueHoe(3109, blue).setUnlocalizedName("blueHoe").setTextureName("TutorialMod:blueHoe");
 
 // item assignment
-public static Item testGem = new testGem(3110).setUnlocalizedName("testGem").setTextureName("TutorialMod:testGem");
+public static Item testGem = new testGem(3200).setUnlocalizedName("testGem").setTextureName("TutorialMod:testGem");
 
 
 
@@ -83,6 +100,7 @@ public static Item testGem = new testGem(3110).setUnlocalizedName("testGem").set
 		//Block registry
 		GameRegistry.registerBlock(testOre, "testOre");
 		GameRegistry.registerBlock(testFurnace, "testFurnace");
+		GameRegistry.registerBlock(blueOre, "blueOre");
 		
 		//Tile Entity Registration
 		GameRegistry.registerTileEntity(testFurnaceTileEntity.class, "testFurnaceTileEntity");
@@ -99,6 +117,15 @@ public static Item testGem = new testGem(3110).setUnlocalizedName("testGem").set
 		GameRegistry.registerItem(testChest, "testChest");
 		GameRegistry.registerItem(testLeggs, "testLeggs");
 		GameRegistry.registerItem(testBoots, "testBoots");
+		GameRegistry.registerItem(bluePick, "bluePick");
+		GameRegistry.registerItem(blueShovle, "blueShovle");
+		GameRegistry.registerItem(blueAxe, "blueAxe");
+		GameRegistry.registerItem(blueSword, "blueSword");
+		GameRegistry.registerItem(blueHoe, "blueHoe");
+		GameRegistry.registerItem(blueHelmet, "blueHelmet");
+		GameRegistry.registerItem(blueChest, "blueChest");
+		GameRegistry.registerItem(blueLeggings, "blueLeggings");
+		GameRegistry.registerItem(blueBoots, "blueBoots");
 		
 		//Mob registry
 		EntityRegistry.registerGlobalEntityID(EntitytestMob.class, "Tes tMob", EntityRegistry.findGlobalUniqueEntityId());
@@ -140,6 +167,7 @@ public static Item testGem = new testGem(3110).setUnlocalizedName("testGem").set
 		//GameRegistry.addRecipe(new ItemStack());
 		
 		GameRegistry.registerWorldGenerator(worldgen1, 1);
+		GameRegistry.registerWorldGenerator(worldgen2, 1);
 		
 	}
 	
