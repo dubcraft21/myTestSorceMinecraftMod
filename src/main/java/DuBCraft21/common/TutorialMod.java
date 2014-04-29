@@ -53,7 +53,6 @@ private static int startsEntityId = 301;
 
 
 public static CreativeTabs testTab = new testTab(CreativeTabs.getNextID(), "testTab");
-public static Item testPlaceholder = new testPlaceholder(3201).setUnlocalizedName("testPlaceholder").setTextureName("TutorialMod:testPlaceholder");
 public static ArmorMaterial testArmor = EnumHelper.addArmorMaterial("TESTA", 66, new int [] {5, 15, 10, 5}, 30);
 public static ToolMaterial test = EnumHelper.addToolMaterial("TEST", 5, 2000, 15.0f, 4, 30);
 public static ArmorMaterial blueArmor = EnumHelper.addArmorMaterial("BLUEARMOR", 100, new int [] {10, 30, 20, 10}, 30);
@@ -92,6 +91,8 @@ public static Item blueHoe = new blueHoe(3109, blue).setUnlocalizedName("blueHoe
 
 // item assignment
 public static Item testGem = new testGem(3200).setUnlocalizedName("testGem").setTextureName("TutorialMod:testGem");
+public static Item testPlaceholder = new testPlaceholder(3201).setUnlocalizedName("testPlaceholder").setTextureName("TutorialMod:testPlaceholder");
+public static Item blueGem = new blueGem(3202).setUnlocalizedName("blueGem").setTextureName("TutorialMod:blueGem");
 
 
 
@@ -126,6 +127,7 @@ public static Item testGem = new testGem(3200).setUnlocalizedName("testGem").set
 		GameRegistry.registerItem(blueChest, "blueChest");
 		GameRegistry.registerItem(blueLeggings, "blueLeggings");
 		GameRegistry.registerItem(blueBoots, "blueBoots");
+		GameRegistry.registerItem(blueGem, "blueGem");
 		
 		//Mob registry
 		EntityRegistry.registerGlobalEntityID(EntitytestMob.class, "Tes tMob", EntityRegistry.findGlobalUniqueEntityId());
@@ -163,6 +165,36 @@ public static Item testGem = new testGem(3200).setUnlocalizedName("testGem").set
 		});
 		GameRegistry.addRecipe(new ItemStack(testGem, 1), new Object [] {
 			"x", 'x', testOre
+		});
+		GameRegistry.addRecipe(new ItemStack(blueGem, 1), new Object [] {
+			"x", 'x', blueOre
+		});
+		GameRegistry.addRecipe(new ItemStack(bluePick, 1), new Object [] {
+			"xxx", " s ", " s ", 'x', blueGem, 's', Items.stick
+		});
+		GameRegistry.addRecipe(new ItemStack(blueShovle, 1), new Object [] {
+			" x ", " s ", " s ", 'x', blueGem, 's', Items.stick
+		});
+		GameRegistry.addRecipe(new ItemStack(blueHoe, 1), new Object [] {
+			" xx", " s ", " s ", 'x', blueGem, 's', Items.stick
+		});
+		GameRegistry.addRecipe(new ItemStack(blueSword, 1), new Object [] {
+			" x ", " x ", " s ", 'x', blueGem, 's', Items.stick
+		});
+		GameRegistry.addRecipe(new ItemStack(blueAxe, 1), new Object [] {
+			" xx", " sx", " s ", 'x', blueGem, 's', Items.stick
+		});
+		GameRegistry.addRecipe(new ItemStack(blueChest, 1), new Object [] {
+			"x x", "xxx", "xxx", 'x', blueGem
+		});
+		GameRegistry.addRecipe(new ItemStack(blueHelmet, 1), new Object [] {
+			"xxx", "x x", 'x', blueGem
+		});
+		GameRegistry.addRecipe(new ItemStack(blueBoots, 1), new Object [] {
+			"x x", "x x", 'x', blueGem
+		});
+		GameRegistry.addRecipe(new ItemStack(blueLeggings, 1), new Object [] {
+			"xxx", "x x", "x x", 'x', blueGem
 		});
 		//GameRegistry.addRecipe(new ItemStack());
 		
